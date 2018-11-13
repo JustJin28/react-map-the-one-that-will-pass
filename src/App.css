@@ -18,8 +18,8 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.PlaceList {
+  z-index: 1;
 }
 
 @keyframes App-logo-spin {
