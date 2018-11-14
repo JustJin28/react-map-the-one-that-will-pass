@@ -14,6 +14,7 @@ ol li {
   counter-increment: list-c;
   padding-left: 25px;
   position: relative;
+  cursor: pointer;
 }
 ol li:before {
   content: counter(list-c) '.';

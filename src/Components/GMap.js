@@ -20,27 +20,80 @@ class MapContainer extends Component {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+    query:'',
   };
 
-  onMarkerClick = (props, marker, e) =>
+
+
+  onMarkerClick = (props, marker, e) => {
+    console.log(marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
+  }
 
-    onMapClicked = (props) => {
+  onLiClick = (markers) =>{
+    //AllPlaces.foreach(
+      //if(markers.target.innerHTML === )
+    //google.maps.event.trigger(marker,'click'))
+  }
+
+
+  onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null
       })
     }
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query }, () => {
+
+    });
+  }
+
+  CreateInputField = () => {
+    const { query } = this.state;
+
+    return <input
+    value = {query}
+    onChange={event => this.updateQuery(event.target.value)}
+    placeholder = "Search Nearby Places"
+    />
+  }
+
+  findPlaces = () => {
+    return(
+      <ol className='Places'>
+        {AllPlaces.map((arrayItem, index)=>
+          <li
+          key = {index}
+          className='Place'
+          //onClick={() => {this.onLiClick}}
+          >{arrayItem.name}</li>
+        )}
+      </ol>
+    )
   };
 
   render() {
     return (
       <div className = 'map-container' style={{marginleft:'250px'}}>
+        <div>
+          <div className = 'sideMenu'>
+            <div className = 'List'>
+              <h1 className = 'title'> Places to Eat </h1>
+                {this.CreateInputField()}
+            </div>
+            <div className = 'PlaceList'>
+              {this.findPlaces()}
+            </div>
+          </div>
+        </div>
         <Map google={this.props.google} zoom={14}
           initialCenter = {{lat:40.7589, lng:-73.9851}}
           onClick={this.onMapClicked}>
