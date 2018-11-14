@@ -4,18 +4,18 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper
 
 var  AllPlaces = [
 {
-"name" : "Pizza",
+"name" : "pizza",
 "lat": "40.7589",
 "lng":"-73.9851",
 },
 
 {
-"name" : "Cookies",
+"name" : "cookies",
 "lat": "40.7690",
 "lng":"-73.9952",
 },
 {
-"name" : "Bagels",
+"name" : "bagels",
 "lat": "40.7489",
 "lng":"-73.9751",
 }

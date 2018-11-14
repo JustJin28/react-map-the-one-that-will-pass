@@ -7,17 +7,14 @@
 ol {
   margin: 0;
   padding: 0;
-  counter-reset: list-c;
 }
 ol li {
   display: inline-block;
-  counter-increment: list-c;
   padding-left: 25px;
   position: relative;
   cursor: pointer;
 }
 ol li:before {
-  content: counter(list-c) '.';
   display: inline-block;
   text-align: center;
   position: absolute;
