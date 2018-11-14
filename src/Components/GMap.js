@@ -63,7 +63,7 @@ if (this.state.showingInfoWindow) {
 CreateInputField = () => (
 <input
   placeholder = "Search Nearby Places"
-  onChange={(event) => this.setState({filteredPlaces: AllPlaces.filter(place => !place.name.startsWith(event.target.value))})}
+  onChange={(event) => this.setState({filteredPlaces: AllPlaces.filter(place => !place.name.startsWith((event.target.value).toLowerCase()))})}
 />
 )
 
