@@ -2,25 +2,7 @@ import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import axios from 'axios';
 
-var  AllPlaces = [
-
-]
-
-
-axios.get("https://api.foursquare.com/v2/venues/search?ll=40.7589,-73.9851&query=food&radius=2000&categoryId=4d4b7105d754a06374d81259&client_id=INOHETWKCQHOZUPUATJJ503RCWMUXPFUOCJCHRN2LRADAZJO&client_secret=1ABUWB4S3QS41A50X1UJFHC4THA2YQGOBNOBUSRARLZ4DE5W&v=20201215&limit=6").then(
-  response => {
-    response.data.response.venues.forEach(function(item){
-      AllPlaces.push(
-        {
-          name: item.categories[0].name.toLowerCase(),
-          lat: item.location.lat,
-          lng: item.location.lng
-        }
-      )
-    })
-  }
-)
-
+var AllPlaces = []
 
 class MapContainer extends Component {
 state = {
@@ -33,6 +15,24 @@ filteredPlaces: []
 
 markers = []
 
+
+async componentWillMount() {
+    const axiosData = await axios
+      .get(
+        'https://api.foursquare.com/v2/venues/search?ll=40.7589,-73.9851&query=food&radius=2000&categoryId=4d4b7105d754a06374d81259&client_id=INOHETWKCQHOZUPUATJJ503RCWMUXPFUOCJCHRN2LRADAZJO&client_secret=1ABUWB4S3QS41A50X1UJFHC4THA2YQGOBNOBUSRARLZ4DE5W&v=20201215&limit=10'
+      )
+      .then(response =>
+        response.data.response.venues.map(v => (
+          AllPlaces.push(
+          {
+          name: v.categories[0].name.toLowerCase(),
+          lat: v.location.lat,
+          lng: v.location.lng,
+        })
+      ))
+      );
+    this.setState({axiosData})
+  }
 
 onMarkerClick = (props, marker, e) => {
 this.setState({
