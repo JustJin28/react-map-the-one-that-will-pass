@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper
-} from 'google-maps-react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import axios from 'axios';
 
 var  AllPlaces = [
-{
-"name" : "pizza",
-"lat": "40.7589",
-"lng":"-73.9851",
-},
 
-{
-"name" : "cookies",
-"lat": "40.7690",
-"lng":"-73.9952",
-},
-{
-"name" : "bagels",
-"lat": "40.7489",
-"lng":"-73.9751",
-}
 ]
+
+
+axios.get("https://api.foursquare.com/v2/venues/search?ll=40.7589,-73.9851&query=food&radius=2000&categoryId=4d4b7105d754a06374d81259&client_id=INOHETWKCQHOZUPUATJJ503RCWMUXPFUOCJCHRN2LRADAZJO&client_secret=1ABUWB4S3QS41A50X1UJFHC4THA2YQGOBNOBUSRARLZ4DE5W&v=20201215&limit=6").then(
+  response => {
+    response.data.response.venues.forEach(function(item){
+      AllPlaces.push(
+        {
+          name: item.categories[0].name.toLowerCase(),
+          lat: item.location.lat,
+          lng: item.location.lng
+        }
+      )
+    })
+  }
+)
+
 
 class MapContainer extends Component {
 state = {
@@ -69,10 +70,10 @@ CreateInputField = () => (
 
 render() {
 return (
-  <div className = 'map-container' style=
+  <div className = 'map-container' role='application' style=
 {{marginleft:'250px'}}>
     <div>
-      <div className = 'sideMenu'>
+      <div className = 'navMenu'>
         <div className = 'List'>
           <h1 className = 'title'> Places to Eat
 </h1>
@@ -102,6 +103,7 @@ return (
  e.marker}}
           onClick={this.onMarkerClick}
           title = {marker.name}
+          key = {i}
           name={marker.name}
           position =
 {{lat:marker.lat,lng:marker.lng}}
