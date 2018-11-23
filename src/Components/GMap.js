@@ -10,10 +10,13 @@ showingInfoWindow: false,
 activeMarker: {},
 selectedPlace: {},
 query:'',
-filteredPlaces: []
+filteredPlaces: [],
+error: null,
+errorInfo: "Map Could not Load correctly"
 };
 
 markers = []
+
 
 
 async componentWillMount() {
@@ -33,6 +36,14 @@ async componentWillMount() {
       );
     this.setState({axiosData})
   }
+
+componentDidCatch(error, errorInfo){
+  this.setState({
+    error:error,
+    errorInfo:errorInfo
+  })
+}
+
 
 onMarkerClick = (props, marker, e) => {
 this.setState({
