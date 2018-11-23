@@ -11,8 +11,7 @@ activeMarker: {},
 selectedPlace: {},
 query:'',
 filteredPlaces: [],
-error: null,
-errorInfo: "Map Could not Load correctly"
+hasError: false,
 };
 
 markers = []
@@ -37,13 +36,10 @@ async componentWillMount() {
     this.setState({axiosData})
   }
 
-componentDidCatch(error, errorInfo){
-  this.setState({
-    error:error,
-    errorInfo:errorInfo
-  })
+componentDidCatch(error, info){
+  this.setState({hasError:true});
+  console.log(error,info)
 }
-
 
 onMarkerClick = (props, marker, e) => {
 this.setState({
@@ -80,6 +76,9 @@ CreateInputField = () => (
 )
 
 render() {
+if(this.state.hasError){
+  return <h1>Something went wrong in loading the Map</h1>
+}
 return (
   <div className = 'map-container' role='application' style=
 {{marginleft:'250px'}}>
